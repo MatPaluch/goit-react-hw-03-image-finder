@@ -13,7 +13,13 @@ export default class ImageGallery extends Component {
     return (
       <ul className="ImageGallery">
         {this.props.data.map((elem) => {
-          return <ImageGalleryItem src={elem.webformatURL} key={elem.id} />;
+          return (
+            <ImageGalleryItem
+              src={elem.webformatURL}
+              key={elem.id}
+              alt={elem.largeImageURL}
+            />
+          );
         })}
       </ul>
     );

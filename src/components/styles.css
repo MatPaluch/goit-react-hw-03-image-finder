@@ -212,3 +212,10 @@ img {
 .Button:active {
   background-color: #303f9f;
 }
+.LoaderCenter {
+  z-index: 5;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
