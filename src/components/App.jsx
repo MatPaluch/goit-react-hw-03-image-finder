@@ -58,7 +58,7 @@ class App extends Component {
       <>
         <div className="App">
           <Searchbar option={this.searchFunc} />
-          {this.state.data !== undefined && (
+          {this.state.data && (
             <>
               <ImageGallery data={this.state.data} />
               <Button buttonHandle={this.handleFetch} />

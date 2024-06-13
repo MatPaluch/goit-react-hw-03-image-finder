@@ -25,6 +25,11 @@ export default class ImageGalleryItem extends Component {
     }
   };
 
+  componentDidMount() {
+    const height = document.body.scrollHeight;
+    window.scrollTo({ top: height, behavior: "smooth" });
+  }
+
   render() {
     return (
       <li className="ImageGalleryItem" tabIndex={0} onKeyDown={this.modalKey}>
