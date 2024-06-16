@@ -10,9 +10,9 @@ export default class Modal extends Component {
 
   render() {
     return (
-      <div className="Overlay">
+      <div className="Overlay" onClick={this.props.handleModal}>
         <div className="Modal">
-          <img src={this.props.srcBig} alt="" onClick={this.props.handleKey} />
+          <img src={this.props.srcBig} alt="" />
         </div>
       </div>
     );
