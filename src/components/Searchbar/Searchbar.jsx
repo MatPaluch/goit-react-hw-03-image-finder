@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import "../styles.css";
 
 export default class Searchbar extends Component {
-  static defaultProps = {};
-
   static propTypes = {
     option: PropTypes.func,
   };
@@ -24,6 +22,7 @@ export default class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
+            required
           />
         </form>
       </header>

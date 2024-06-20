@@ -13,6 +13,7 @@ export default class ImageGalleryItem extends Component {
     src: PropTypes.string,
     alt: PropTypes.string,
   };
+
   modal = () => {
     this.setState({ showModal: true });
   };
