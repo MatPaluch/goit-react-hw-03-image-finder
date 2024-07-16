@@ -11,10 +11,14 @@ export default class App extends Component {
     super();
     this.state = {
       isLoading: false,
+      data: [],
+      word: "",
+      page: 1,
     };
   }
 
   fetchImages = async (pag, keyWord) => {
+    this.setState({ isLoading: true });
     const params = new URLSearchParams({
       key: "43605256-eead80bfe3e75f279f48bfba2",
       image_type: "photo",
@@ -24,22 +28,24 @@ export default class App extends Component {
       q: keyWord,
     });
 
-    return await axios.get(`https://pixabay.com/api/?${params}`).finally(() => {
+    try {
+      const response = await axios.get(`https://pixabay.com/api/?${params}`);
+      return response.data.hits;
+    } catch (err) {
+      console.error(err);
+    } finally {
       this.setState({ isLoading: false });
-    });
+    }
   };
 
   handleSearch = async (ev) => {
     ev.preventDefault();
-    this.setState({
-      isLoading: true,
-    });
 
     const word = ev.target.elements.inputSearch.value;
-    const response = await this.fetchImages(1, word);
+    const data = await this.fetchImages(1, word);
 
     this.setState({
-      data: response.data.hits,
+      data: data,
       word: word,
       page: 2,
     });
@@ -47,16 +53,13 @@ export default class App extends Component {
 
   handleFetch = async (ev) => {
     ev.preventDefault();
-    this.setState({
-      isLoading: true,
-    });
-    console.log(this.state.page);
-    const response = await this.fetchImages(2, this.state.word);
+
+    const data = await this.fetchImages(this.state.page, this.state.word);
+
     this.setState((prevState) => ({
-      data: [...prevState.data, ...response.data.hits],
+      data: [...prevState.data, ...data],
       page: prevState.page + 1,
     }));
-    console.log(this.state.page);
   };
 
   render() {
@@ -64,7 +67,7 @@ export default class App extends Component {
       <>
         <div className="App">
           <Searchbar option={this.handleSearch} />
-          {this.state.data && (
+          {this.state.data.length > 0 && (
             <>
               <ImageGallery data={this.state.data} />
               <Button buttonHandle={this.handleFetch} />
